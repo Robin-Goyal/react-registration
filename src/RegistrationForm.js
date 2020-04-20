@@ -136,26 +136,36 @@ export default class RegistrationForm extends React.Component {
                     color={"#00836c"}
                     loading={this.state.loading}
                 />
+                <div className="form-container">
                 <Form className={this.state.loading ? 'loading-data': ''} ref={form => this.formRef = form} action={ this.registerUser }>
                     <h3>Registration Form</h3>
+                    <div className="input-row">
+                        <div className="input-field">
                     <Input
                         name="firstName"
                         label="First name"
                         required
                     />
+                    </div>
+                    <div className="input-field">
                     <Input
                         name="lastName"
                         label="Last name"
                         required
                     />
+                    </div>
+                    <div className="input-field">
                     <Input
                         name="userEmail"
                         type="email"
                         label="Your personal email"
                         required
                     />
-                    <div className="phone-block">
+                    </div>
+                   
+                    <div className="input-field phone-block">
                         <Label>Phone</Label>
+                        <div className="phoneCode-row">
                         <span className="phoneCode">
                             <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
                                 {
@@ -166,12 +176,16 @@ export default class RegistrationForm extends React.Component {
                             </select>
                         </span>
                         <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
+                        </div>
                     </div>
+                    <div className="input-field">
                     <Input
                         name="town"
                         label="Town/City"
                     />
-                    <div className="country-block">
+                    </div>
+                 
+                    <div className="input-field country-block">
                         <Label required>Country</Label>
                         <Select
                             name="country"
@@ -186,27 +200,37 @@ export default class RegistrationForm extends React.Component {
                             }
                         </Select>
                     </div>
+                    <div className="input-field">
                     <Input
                         name="profileurl"
                         label="Linkedin profile URL"
                         required
                     />
+                    </div>
+                    <div className="input-field">
                     <Input
                         name="resume"
                         type="file"
                         label="Resume"
                         required
                     />
+                    </div>
+                    <div className="input-field full-width">
                     <Input
                         name="skills"
                         label="Specify your key skills"
                     />
+                    </div>
+                    <div className="input-field message full-width">
                     <Input
                         name="custommessage"
                         label="Message"
                     />
+                    </div>
+                    </div>
                     <Button primary>Send</Button>
                 </Form>
+                </div>
             </div>
         );
     }
