@@ -79,6 +79,7 @@ select {
 form {
   max-width: 800px;
   margin: auto;
+  position: relative;
 }
 
 /*
@@ -94,3 +95,10 @@ form > div {
 	display:flex;
 	flex-wrap:wrap;
 }
+
+
+.loading-data {
+  opacity: .3;
+  pointer-events: none;
+}
+
