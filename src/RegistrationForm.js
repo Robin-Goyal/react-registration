@@ -11,8 +11,8 @@ const override = css`
   position: absolute;
   margin: 0 auto;
   border-color: #00836c;
-  left: 42%;
-  top: 30%;
+  left: 45%;
+  top: 40%;
   z-index: 1;
 `;
 
@@ -232,7 +232,6 @@ export default class RegistrationForm extends React.Component {
                                 onChange={(chips) => this.skillChange(chips)}
                                 label="Specify your key skills"
                                 variant="outlined"
-                                style={{ width: 265 }}
                                 newChipKeys={['Enter', 'Tab']}
                                 blurBehavior="add"
                             />
