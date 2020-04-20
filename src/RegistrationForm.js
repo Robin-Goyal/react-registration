@@ -4,7 +4,7 @@ import axios from 'axios';
 import { css } from "@emotion/core";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import ChipInput from 'material-ui-chip-input';
-import { Input, Button, Select, Label } from 'react-advanced-form-addons';
+import { Input, Button, Select, Label, Textarea } from 'react-advanced-form-addons';
 import country from './country';
 
 const override = css`
@@ -243,7 +243,8 @@ export default class RegistrationForm extends React.Component {
                             />
                         </div>
                         <div className="input-field message full-width">
-                            <Input
+                            <Label>Message</Label>
+                            <Textarea
                                 name="custommessage"
                                 label="Message"
                             />

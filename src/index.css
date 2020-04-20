@@ -151,19 +151,19 @@ form > div {
   padding-right:20px; 
 }
 
-.form-container .input-row .input-field input, .form-container .input-row .input-field select {
+.form-container .input-row .input-field input, .form-container .input-row .input-field select, .form-container .input-row .input-field textarea {
   width:100%!important;
   border:1px solid #b9b9b9;
   border-radius:5px;
   box-sizing:border-box;
-  padding:11px 12px;
+  padding:11px 40px 11px 12px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight:400;
   font-size:14px;
   color:#333;
   height:auto;
 }
-.form-container .input-row .input-field input:focus, .form-container .input-row .input-field select:focus  {
+.form-container .input-row .input-field input:focus, .form-container .input-row .input-field select:focus, .form-container .input-row .input-field textarea:focus  {
   box-shadow:rgba(0, 175, 232, 0.2) 0px 0px 0px 3px;
   outline:none;
 }
@@ -181,7 +181,7 @@ form > div {
 }
 
 .form-container .input-row .input-field.file-upload input {
-  padding:9px 12px;
+  padding:9px 40px 9px 12px;
   height:41px; 
 }
 
