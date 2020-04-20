@@ -3,6 +3,7 @@ import { Form } from 'react-advanced-form';
 import axios from 'axios';
 import { css } from "@emotion/core";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import ChipInput from 'material-ui-chip-input';
 import { Input, Button, Select, Label } from 'react-advanced-form-addons';
 import country from './country';
 
@@ -22,9 +23,11 @@ export default class RegistrationForm extends React.Component {
             loading: true,
             country: 'AU',
             countryCode: 61,
+            skills: [],
             phone: ''
         };
         this.onChangeHandler = this.onChangeHandler.bind(this);
+        this.skillChange = this.skillChange.bind(this);
     }
 
     onChangeHandler(event) {
@@ -45,6 +48,13 @@ export default class RegistrationForm extends React.Component {
             }); 
         }
     }
+
+    skillChange(chips) {
+        this.setState({
+            skills: chips
+        }); 
+    }
+
 
     validatePhone(val) {
         const plusCountryCode = '+' + this.state.countryCode;
@@ -102,6 +112,7 @@ export default class RegistrationForm extends React.Component {
         if (serialized) {
             serialized.phone = this.state.phone;
             serialized.phoneCode = this.state.countryCode;
+            serialized.skills = this.state.skills;
             const data = JSON.stringify(serialized, null, 2);
             alert(data);
         }
@@ -197,10 +208,17 @@ export default class RegistrationForm extends React.Component {
                         label="Resume"
                         required
                     />
-                    <Input
-                        name="skills"
-                        label="Specify your key skills"
-                    />
+                    <div className="skill-block">
+                        <Label>Skills</Label>
+                        <ChipInput
+                            onChange={(chips) => this.skillChange(chips)}
+                            label="Specify your key skills"
+                            variant="outlined"
+                            style={{ width: 265 }}
+                            newChipKeys={['Enter', 'Tab']}
+                            blurBehavior="add"
+                        />
+                    </div>
                     <Input
                         name="custommessage"
                         label="Message"
