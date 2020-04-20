@@ -218,7 +218,7 @@ export default class RegistrationForm extends React.Component {
                                 required
                             />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field file-upload">
                             <Input
                                 name="resume"
                                 type="file"
@@ -226,11 +226,11 @@ export default class RegistrationForm extends React.Component {
                                 required
                             />
                         </div>
-                        <div className="input-field full-width">
+                        <div className="input-field full-width skills">
                             <Label>Skills</Label>
                             <ChipInput
                                 onChange={(chips) => this.skillChange(chips)}
-                                label="Specify your key skills"
+                                placeholder="Specify your key skills"
                                 variant="outlined"
                                 newChipKeys={['Enter', 'Tab']}
                                 blurBehavior="add"
