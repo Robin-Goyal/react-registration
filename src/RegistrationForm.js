@@ -1,13 +1,25 @@
 import React from 'react';
 import { Form } from 'react-advanced-form';
-import axios from 'axios'
+import axios from 'axios';
+import { css } from "@emotion/core";
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { Input, Button, Select, Label } from 'react-advanced-form-addons';
 import country from './country';
+
+const override = css`
+  position: absolute;
+  margin: 0 auto;
+  border-color: #00836c;
+  left: 42%;
+  top: 30%;
+  z-index: 1;
+`;
 
 export default class RegistrationForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             country: 'AU',
             countryCode: 61,
             phone: ''
@@ -63,25 +75,27 @@ export default class RegistrationForm extends React.Component {
     }
 
     fetchData = () => {
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                axios.get('http://api.geonames.org/countryCodeJSON?formatted=true&lat='+ position.coords.latitude +'&lng='+ position.coords.longitude +'&username=robinjspanther&style=full').then((response) => {
-                    let data = response.data;
-                    country.map(item => {
-                        if (item.code === data.countryCode) {
-                            this.setState({
-                                country: data.countryCode,
-                                countryCode: item.countryCode
-                            }); 
-                            return true;
-                        }
-                        return true;
-                    });
-                }).catch((error) => {
-                    console.log(error);
-                });
+        axios.get('https://ipapi.co/json/').then((response) => {
+            this.setState({
+                loading: false
+            }); 
+            let data = response.data;
+            country.map(item => {
+                if (item.code === data.country_code) {
+                    this.setState({
+                        country: data.country_code,
+                        countryCode: item.countryCode
+                    }); 
+                    return true;
+                }
+                return true;
             });
-        }
+        }).catch((error) => {
+            console.log(error);
+            this.setState({
+                loading: false
+            });
+        });
     }
 
     registerUser = ({ serialized, fields, form }) => {
@@ -115,77 +129,85 @@ export default class RegistrationForm extends React.Component {
     
     render() {
         return (
-        <Form ref={form => this.formRef = form} action={ this.registerUser }>
-            <h3>Registration Form</h3>
-            <Input
-                name="firstName"
-                label="First name"
-                required
-            />
-            <Input
-                name="lastName"
-                label="Last name"
-                required
-            />
-            <Input
-                name="userEmail"
-                type="email"
-                label="Your personal email"
-                required
-            />
-            <div className="phone-block">
-                <Label>Phone</Label>
-                <span className="phoneCode">
-                    <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
-                        {
-                            country.map(item => (
-                                <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}</option>
-                            ))
-                        }
-                    </select>
-                </span>
-                <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
+            <div>
+                <PacmanLoader
+                    css={override}
+                    size={25}
+                    color={"#00836c"}
+                    loading={this.state.loading}
+                />
+                <Form className={this.state.loading ? 'loading-data': ''} ref={form => this.formRef = form} action={ this.registerUser }>
+                    <h3>Registration Form</h3>
+                    <Input
+                        name="firstName"
+                        label="First name"
+                        required
+                    />
+                    <Input
+                        name="lastName"
+                        label="Last name"
+                        required
+                    />
+                    <Input
+                        name="userEmail"
+                        type="email"
+                        label="Your personal email"
+                        required
+                    />
+                    <div className="phone-block">
+                        <Label>Phone</Label>
+                        <span className="phoneCode">
+                            <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
+                                {
+                                    country.map(item => (
+                                        <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </span>
+                        <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
+                    </div>
+                    <Input
+                        name="town"
+                        label="Town/City"
+                    />
+                    <div className="country-block">
+                        <Label required>Country</Label>
+                        <Select
+                            name="country"
+                            placeholder="Country"
+                            value={this.state.country}
+                            onChange={this.onChangeHandler}
+                            required>
+                            {
+                                country.map(item => (
+                                    <option key={item.code} value={item.code}>{item.name}</option>
+                                ))
+                            }
+                        </Select>
+                    </div>
+                    <Input
+                        name="profileurl"
+                        label="Linkedin profile URL"
+                        required
+                    />
+                    <Input
+                        name="resume"
+                        type="file"
+                        label="Resume"
+                        required
+                    />
+                    <Input
+                        name="skills"
+                        label="Specify your key skills"
+                    />
+                    <Input
+                        name="custommessage"
+                        label="Message"
+                    />
+                    <Button primary>Send</Button>
+                </Form>
             </div>
-            <Input
-                name="town"
-                label="Town/City"
-            />
-            <div className="country-block">
-                <Label required>Country</Label>
-                <Select
-                    name="country"
-                    placeholder="Country"
-                    value={this.state.country}
-                    onChange={this.onChangeHandler}
-                    required>
-                    {
-                        country.map(item => (
-                            <option key={item.code} value={item.code}>{item.name}</option>
-                        ))
-                    }
-                </Select>
-            </div>
-            <Input
-                name="profileurl"
-                label="Linkedin profile URL"
-                required
-            />
-            <Input
-                name="resume"
-                type="file"
-                label="Resume"
-                required
-            />
-            <Input
-                name="skills"
-                label="Specify your key skills"
-            />
-            <Input
-                name="custommessage"
-                label="Message"
-            />
-            <Button primary>Send</Button>
-        </Form>
         );
     }
 }
