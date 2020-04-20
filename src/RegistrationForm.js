@@ -147,84 +147,106 @@ export default class RegistrationForm extends React.Component {
                     color={"#00836c"}
                     loading={this.state.loading}
                 />
+                <div className="form-container">
                 <Form className={this.state.loading ? 'loading-data': ''} ref={form => this.formRef = form} action={ this.registerUser }>
                     <h3>Registration Form</h3>
-                    <Input
-                        name="firstName"
-                        label="First name"
-                        required
-                    />
-                    <Input
-                        name="lastName"
-                        label="Last name"
-                        required
-                    />
-                    <Input
-                        name="userEmail"
-                        type="email"
-                        label="Your personal email"
-                        required
-                    />
-                    <div className="phone-block">
-                        <Label>Phone</Label>
-                        <span className="phoneCode">
-                            <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
+                    <div className="input-row">
+                        <div className="input-field">
+                            <Input
+                                name="firstName"
+                                label="First name"
+                                required
+                            />
+                        </div>
+                        <div className="input-field">
+                            <Input
+                                name="lastName"
+                                label="Last name"
+                                required
+                            />
+                        </div>
+                        <div className="input-field">
+                            <Input
+                                name="userEmail"
+                                type="email"
+                                label="Your personal email"
+                                required
+                            />
+                        </div>
+                    
+                        <div className="input-field phone-block">
+                            <Label>Phone</Label>
+                            <div className="phoneCode-row">
+                                <span className="phoneCode">
+                                    <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
+                                        {
+                                            country.map(item => (
+                                                <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </span>
+                                <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
+                            </div>
+                        </div>
+                        <div className="input-field">
+                            <Input
+                                name="town"
+                                label="Town/City"
+                            />
+                        </div>
+                    
+                        <div className="input-field country-block">
+                            <Label required>Country</Label>
+                            <Select
+                                name="country"
+                                placeholder="Country"
+                                value={this.state.country}
+                                onChange={this.onChangeHandler}
+                                required>
                                 {
                                     country.map(item => (
-                                        <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}</option>
+                                        <option key={item.code} value={item.code}>{item.name}</option>
                                     ))
                                 }
-                            </select>
-                        </span>
-                        <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
+                            </Select>
+                        </div>
+                        <div className="input-field">
+                            <Input
+                                name="profileurl"
+                                label="Linkedin profile URL"
+                                required
+                            />
+                        </div>
+                        <div className="input-field">
+                            <Input
+                                name="resume"
+                                type="file"
+                                label="Resume"
+                                required
+                            />
+                        </div>
+                        <div className="input-field full-width">
+                            <Label>Skills</Label>
+                            <ChipInput
+                                onChange={(chips) => this.skillChange(chips)}
+                                label="Specify your key skills"
+                                variant="outlined"
+                                style={{ width: 265 }}
+                                newChipKeys={['Enter', 'Tab']}
+                                blurBehavior="add"
+                            />
+                        </div>
+                        <div className="input-field message full-width">
+                            <Input
+                                name="custommessage"
+                                label="Message"
+                            />
+                        </div>
                     </div>
-                    <Input
-                        name="town"
-                        label="Town/City"
-                    />
-                    <div className="country-block">
-                        <Label required>Country</Label>
-                        <Select
-                            name="country"
-                            placeholder="Country"
-                            value={this.state.country}
-                            onChange={this.onChangeHandler}
-                            required>
-                            {
-                                country.map(item => (
-                                    <option key={item.code} value={item.code}>{item.name}</option>
-                                ))
-                            }
-                        </Select>
-                    </div>
-                    <Input
-                        name="profileurl"
-                        label="Linkedin profile URL"
-                        required
-                    />
-                    <Input
-                        name="resume"
-                        type="file"
-                        label="Resume"
-                        required
-                    />
-                    <div className="skill-block">
-                        <Label>Skills</Label>
-                        <ChipInput
-                            onChange={(chips) => this.skillChange(chips)}
-                            label="Specify your key skills"
-                            variant="outlined"
-                            style={{ width: 265 }}
-                            newChipKeys={['Enter', 'Tab']}
-                            blurBehavior="add"
-                        />
-                    </div>
-                    <Input
-                        name="custommessage"
-                        label="Message"
-                    />
                     <Button primary>Send</Button>
                 </Form>
+                </div>
             </div>
         );
     }
