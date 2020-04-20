@@ -28,6 +28,7 @@ export default class RegistrationForm extends React.Component {
         };
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.skillChange = this.skillChange.bind(this);
+        this.fileHandleChange = this.fileHandleChange.bind(this);
     }
 
     onChangeHandler(event) {
@@ -53,6 +54,10 @@ export default class RegistrationForm extends React.Component {
         this.setState({
             skills: chips
         }); 
+    }
+
+    fileHandleChange(event) {
+        console.log(event);
     }
 
 
@@ -223,6 +228,7 @@ export default class RegistrationForm extends React.Component {
                                 name="resume"
                                 type="file"
                                 label="Resume"
+                                onChange={this.fileHandleChange}
                                 required
                             />
                         </div>
