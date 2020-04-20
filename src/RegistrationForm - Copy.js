@@ -117,45 +117,35 @@ export default class RegistrationForm extends React.Component {
         return (
         <Form ref={form => this.formRef = form} action={ this.registerUser }>
             <h3>Registration Form</h3>
-			<div className="form-container">
-			<div className="input-row">
             <Input
                 name="firstName"
                 label="First name"
                 required
             />
-			</div>
-			<div className="input-row">
             <Input
                 name="lastName"
                 label="Last name"
                 required
             />
-			</div>
-			<div className="input-row">
             <Input
                 name="userEmail"
                 type="email"
                 label="Your personal email"
                 required
             />
-			</div>
-			<div className="input-row">
             <div className="phone-block">
                 <Label>Phone</Label>
                 <span className="phoneCode">
                     <select name="countryCode" value={this.state.countryCode} onChange={this.onChangeHandler}>
                         {
                             country.map(item => (
-                                <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}      {item.name}</option>
+                                <option key={item.code} value={item.countryCode}>{'+' + item.countryCode}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.name}</option>
                             ))
                         }
                     </select>
                 </span>
                 <input type="text" name="phone" value={this.state.phone} onKeyPress={(e) => this.restrict(e)} onChange={this.onChangeHandler} />
             </div>
-				</div>
-				<div className="input-row">
             <Input
                 name="town"
                 label="Town/City"
@@ -175,33 +165,25 @@ export default class RegistrationForm extends React.Component {
                     }
                 </Select>
             </div>
-				</div>
-				<div className="input-row">
             <Input
                 name="profileurl"
                 label="Linkedin profile URL"
                 required
             />
-					</div>
             <Input
                 name="resume"
                 type="file"
                 label="Resume"
                 required
             />
-					<div className="input-row">
             <Input
                 name="skills"
                 label="Specify your key skills"
             />
-					</div>
-				<div className="input-row">
             <Input
                 name="custommessage"
                 label="Message"
             />
-					</div>
-			</div>
             <Button primary>Send</Button>
         </Form>
         );

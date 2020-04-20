@@ -81,9 +81,16 @@ form {
   margin: auto;
 }
 
+/*
 form > div {
   width: 50%;
   float: left;
   min-height: 85px;
   margin: .5rem 0 !important;
+}
+*/
+
+.form-container {
+	display:flex;
+	flex-wrap:wrap;
 }
